@@ -35,6 +35,5 @@ class Solution:
         for i in range(len(heights)):
             lIndex = psn[i] if psn[i] != -1 else -1
             rIndex = nsn[i] if nsn[i] != -1 else len(heights)
-            print(rIndex, lIndex,  heights[i])
             ans = max(ans, (rIndex - lIndex - 1) * heights[i])
         return ans
