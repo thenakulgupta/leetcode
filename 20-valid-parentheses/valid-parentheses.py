@@ -24,5 +24,4 @@ class Solution:
                     arr = arr[:i-1] + arr[i+1:]
                     i -= 2
             i += 1
-        print(arr)
         return len(arr) == 0
