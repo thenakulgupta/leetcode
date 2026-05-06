@@ -6,26 +6,14 @@
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
         i, n, ans = 0, 0, 0
-        mid, otherNodes = None, None
-        curr = head
+        slow, fast, otherNodes = head, head, None
 
-        while curr:
-            curr = curr.next
-            n += 1
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
 
-        curr = head
-
-        while curr:
-            if i < (n / 2) - 1:
-                curr = curr.next
-                i += 1
-            elif i == (n / 2) - 1:
-                mid = curr
-                break
+        otherHalf = slow.next
         
-        otherHalf = mid.next
-        mid.next = None
-
         while otherHalf:
             _node = otherHalf
             _next = otherHalf.next
