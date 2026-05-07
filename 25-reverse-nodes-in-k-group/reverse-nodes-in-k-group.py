@@ -8,37 +8,35 @@ class Solution:
         if k == 1 or not head.next:
             return head
         curr = head
-        last = None
-        _head = None
+        prev_group_tail = None
+        new_head = None
         isFirstTime = True
         while curr:
-            main = None
+            reversed_head = None
             i = 0
-            _last = curr
+            group_tail = curr
             while curr and i < k:
                 nxt = curr.next
-                curr.next = main
-                main = curr
+                curr.next = reversed_head
+                reversed_head = curr
                 curr = nxt
                 i += 1
             if i != k:
-                curr = main
-                main = None
+                curr = reversed_head
+                reversed_head = None
                 i = 0
                 while curr and i < k:
                     nxt = curr.next
-                    curr.next = main
-                    main = curr
+                    curr.next = reversed_head
+                    reversed_head = curr
                     curr = nxt
                     i += 1
             if isFirstTime:
-                _head = main
+                new_head = reversed_head
                 isFirstTime = False
-            if last:
-                # print("_last", _last.val, _last.next)
-                last.next = main if i == k else _last
-            last = _last
+            if prev_group_tail:
+                prev_group_tail.next = reversed_head if i == k else group_tail
+            prev_group_tail = group_tail
             if i != k:
                 break
-            # print(curr.val)
-        return _head
+        return new_head
