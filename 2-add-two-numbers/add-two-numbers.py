@@ -8,35 +8,17 @@ class Solution:
         ans = ListNode(-1)
         currAns = ans
         carry = 0
-        while l1 and l2:
-            _sum = l1.val + l2.val + carry
+        while l1 or l2 or carry:
+            _sum = carry
             carry = 0
-            if _sum > 9:
-                carry = 1
-                _sum -= 10
-            currAns.next = ListNode(_sum)
-            currAns = currAns.next
-            l1 = l1.next
-            l2 = l2.next
-        while l1:
-            _sum = l1.val + carry
-            carry = 0
-            if _sum > 9:
-                carry = 1
-                _sum -= 10
-            currAns.next = ListNode(_sum)
-            currAns = currAns.next
-            l1 = l1.next
-        while l2:
-            _sum = l2.val + carry
-            carry = 0
-            if _sum > 9:
-                carry = 1
-                _sum -= 10
-            currAns.next = ListNode(_sum)
-            currAns = currAns.next
-            l2 = l2.next
-        if carry == 1:
-            currAns.next = ListNode(carry)
+            if l1:
+                _sum += l1.val
+                l1 = l1.next
+            if l2:
+                _sum += l2.val
+                l2 = l2.next
+            num = _sum%10
+            carry = _sum//10
+            currAns.next = ListNode(num)
             currAns = currAns.next
         return ans.next
