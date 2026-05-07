@@ -7,6 +7,7 @@ class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if k == 1 or not head.next:
             return head
+            
         curr = head
         prev_group_tail = None
         new_head = None
