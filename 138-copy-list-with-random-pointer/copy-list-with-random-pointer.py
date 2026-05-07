@@ -27,9 +27,12 @@ class Solution:
                 curr = curr.next.next
             else:
                 break
-        head = head.next
-        curr = head
+        curr = head.next.next
+        new = head.next
+        newC = new
         while curr and curr.next:
+            newC.next = curr.next
             curr.next = curr.next.next
             curr = curr.next
-        return head
+            newC = newC.next
+        return new
