@@ -4,22 +4,53 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if len(preorder) == 0:
+    def build(self, preorder, preL, preR, inorder, inL, inR, hm):
+        if preL > preR or inL > inR:
             return None
-        if len(preorder) == 1:
-            return TreeNode(preorder[0])
 
-        curr = preorder[0]
-        preorder = preorder[1:]
-        currInorder = inorder.index(curr)
-        preorderLeft = preorder[ : currInorder]
-        preorderRight = preorder[currInorder : ]
-        inorderLeft = inorder[ : currInorder]
-        inorderRight = inorder[currInorder + 1 : ]
+        rootVal = preorder[preL]
+        root = TreeNode(rootVal)
 
-        root = TreeNode(curr)
-        root.left = self.buildTree(preorderLeft, inorderLeft)
-        root.right = self.buildTree(preorderRight, inorderRight)
+        inorderIndex = hm[rootVal]
+
+        leftSize = inorderIndex - inL
+
+        root.left = self.build(
+            preorder,
+            preL + 1,
+            preL + leftSize,
+            inorder,
+            inL,
+            inorderIndex - 1,
+            hm
+        )
+
+        root.right = self.build(
+            preorder,
+            preL + leftSize + 1,
+            preR,
+            inorder,
+            inorderIndex + 1,
+            inR,
+            hm
+        )
+
         return root
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        hm = {}
+
+        for i, val in enumerate(inorder):
+            hm[val] = i
+
+        return self.build(
+            preorder,
+            0,
+            len(preorder) - 1,
+            inorder,
+            0,
+            len(inorder) - 1,
+            hm
+        )
