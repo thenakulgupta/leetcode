@@ -6,16 +6,15 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        if not root:
-            return 0
-        def help(tree, currMin):
+        ans = 0
+        def dfs(tree, _min = float("-inf")):
             if not tree:
-                return 0
-            curr = 0
-            if tree.val >= currMin.val:
-                currMin = tree
-                curr = 1 + help(tree.left, currMin) + help(tree.right, currMin)
-            else:
-                curr = help(tree.left, currMin) + help(tree.right, currMin)
-            return curr
-        return 1 + help(root.left, root) + help(root.right, root)
+                return
+            nonlocal ans
+            if tree.val >= _min:
+                ans += 1
+                _min = tree.val
+            dfs(tree.left, _min)
+            dfs(tree.right, _min)
+        dfs(root)
+        return ans
