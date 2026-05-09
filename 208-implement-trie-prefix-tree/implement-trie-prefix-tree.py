@@ -1,6 +1,6 @@
 class Node:
     def __init__(self):
-        self.chars = [None] * 26
+        self.chars = {}
         self.eow = False
 
 class Trie:
@@ -15,7 +15,7 @@ class Trie:
         curr = self.head
         for w in word:
             w = self.charToInt(w)
-            if not curr.chars[w]:
+            if w not in curr.chars:
                 curr.chars[w] = Node()
             curr = curr.chars[w]
         curr.eow = True
@@ -25,7 +25,7 @@ class Trie:
         curr = self.head
         for w in word:
             w = self.charToInt(w)
-            if not curr.chars[w]:
+            if w not in curr.chars:
                 return False
             curr = curr.chars[w]
         return curr.eow
@@ -35,7 +35,7 @@ class Trie:
         curr = self.head
         for w in prefix:
             w = self.charToInt(w)
-            if not curr.chars[w]:
+            if w not in curr.chars:
                 return False
             curr = curr.chars[w]
         return True
