@@ -13,8 +13,8 @@ class Solution:
             nonlocal ans
             if not root:
                 return 0
-            leftCount = count(root.left)
-            rightCount = count(root.right)
+            leftCount = max(0, count(root.left))
+            rightCount = max(0, count(root.right))
             ans = max(ans, leftCount + rightCount)
             return 1 + max(leftCount, rightCount)
         count(root)
