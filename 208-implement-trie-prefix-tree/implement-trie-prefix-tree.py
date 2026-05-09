@@ -9,7 +9,7 @@ class Trie:
         self.head = Node()
 
     def charToInt(self, s):
-        return ord(s) - 97
+        return ord(s) - ord('a')
 
     def insert(self, word: str) -> None:
         curr = self.head
