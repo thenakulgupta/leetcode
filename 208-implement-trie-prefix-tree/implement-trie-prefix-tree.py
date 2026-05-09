@@ -13,37 +13,32 @@ class Trie:
 
     def insert(self, word: str) -> None:
         curr = self.head
-        for i, w in enumerate(word):
+        for w in word:
             w = self.charToInt(w)
             if not curr.chars[w]:
                 curr.chars[w] = Node()
             curr = curr.chars[w]
-            if i == len(word) - 1:
-                curr.eow = True
+        curr.eow = True
         
 
     def search(self, word: str) -> bool:
         curr = self.head
-        for i, w in enumerate(word):
+        for w in word:
             w = self.charToInt(w)
             if not curr.chars[w]:
                 return False
             curr = curr.chars[w]
-            if i == len(word) - 1:
-                return curr.eow
-        return False
+        return curr.eow
         
 
     def startsWith(self, prefix: str) -> bool:
         curr = self.head
-        for i, w in enumerate(prefix):
+        for w in prefix:
             w = self.charToInt(w)
             if not curr.chars[w]:
                 return False
             curr = curr.chars[w]
-            if i == len(prefix) - 1:
-                return True
-        return False
+        return True
 
 
 # Your Trie object will be instantiated and called as such:
