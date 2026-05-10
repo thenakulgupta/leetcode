@@ -3,6 +3,29 @@ class MaxHeap:
         self.heap_arr = [-1]   # 1-indexed
         self.size = 0
 
+    def heapify(self, arr):
+        # TC: O(n) | SC: O(n)
+        self.heap_arr = [-1] + arr
+        self.size = len(arr)
+        n = self.size
+        for i in range(n // 2, 0, -1):
+            curr = i
+            while True:
+                largest = curr
+                left = 2 * curr
+                right = 2 * curr + 1
+
+                if left < n and self.heap_arr[largest] < self.heap_arr[left]:
+                    largest = left
+                if right < n and self.heap_arr[largest] < self.heap_arr[right]:
+                    largest = right
+
+                if curr == largest:
+                    break
+
+                self.heap_arr[largest], self.heap_arr[curr] = self.heap_arr[curr], self.heap_arr[largest]
+                curr = largest
+
     def heappush(self, val):
         # TC: O(log n) | SC: O(1)
         self.size += 1
