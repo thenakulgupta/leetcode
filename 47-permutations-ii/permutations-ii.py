@@ -8,7 +8,7 @@ class Solution:
                 retArr.append(arr[:])
 
             for i in range(len(nums)):
-                if nums[i] != (nums[i - 1] if i > 0 else nums[i] - 1):
+                if nums[i] != (nums[i + 1] if i + 1 < len(nums) else nums[i] - 1):
                     arr.append(nums[i])
                     helper(nums[:i] + nums[i+1:], arr)
                     arr.pop()
