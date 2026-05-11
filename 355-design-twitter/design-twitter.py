@@ -95,10 +95,8 @@ class Twitter:
             idx = tweet[3]
             retTweets.append(tweet[1])
             if idx > 0:
-                print(idx, self.userTweets[userId])
                 time, tweetId = self.userTweets[userId][idx - 1]
                 tweets.heappush([time, tweetId, userId, idx - 1])
-        print("\n"*3)
             
         return retTweets
         
