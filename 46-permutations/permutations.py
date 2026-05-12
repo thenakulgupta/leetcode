@@ -1,18 +1,15 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        returnArr = []
-
-        def helper(nums, ans=[]):
+        self.retArr = []
+        def permuteHelper(nums, arr=[]):
             if 0 == len(nums):
-                nonlocal returnArr
-                returnArr.append(ans[:])
+                self.retArr.append(arr[:])
                 return
             
-            for j in range(len(nums)):
-                ans.append(nums[j])
-                helper(nums[:j] + nums[j+1:], ans)
-                ans.pop()
+            for i in range(len(nums)):
+                arr.append(nums[i])
+                permuteHelper(nums[:i]+nums[i+1:], arr)
+                arr.pop()
 
-        helper(nums)
-
-        return returnArr
+        permuteHelper(nums)
+        return self.retArr
