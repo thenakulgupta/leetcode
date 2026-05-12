@@ -8,9 +8,6 @@ class Solution:
             for row in range(n):
                 if i != row and board[row][j] == 'Q':
                     return False
-            for col in range(n):
-                if j != col and board[i][col] == 'Q':
-                    return False
             row, col = i - 1, j - 1
             while row >= 0 and col >= 0:
                 if board[row][col] == 'Q':
