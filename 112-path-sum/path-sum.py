@@ -16,11 +16,9 @@ class Solution:
             if not tree.left and not tree.right:
                 return currentSum == targetSum
 
-            if helper(tree.left, targetSum, currentSum):
-                return True
-            if helper(tree.right, targetSum, currentSum):
-                return True
+            leftSum = helper(tree.left, targetSum, currentSum)
+            rightSum = helper(tree.right, targetSum, currentSum)
 
-            return False
+            return leftSum or rightSum
 
         return helper(root, targetSum)
