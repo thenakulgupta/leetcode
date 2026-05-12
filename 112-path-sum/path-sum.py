@@ -8,18 +8,20 @@ class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
         if not root:
             return False
-
-        def pathSumBacktrack(tree, targetSum, currentSum=0):
+        def helper(tree, targetSum, currentSum = 0):
             if not tree:
                 return False
 
             currentSum += tree.val
+            if not tree.left and not tree.right:
+                return currentSum == targetSum
                 
-            if targetSum == currentSum and not tree.left and not tree.right:
+            if helper(tree.left, targetSum, currentSum):
                 return True
+            if helper(tree.right, targetSum, currentSum):
+                return True
+            currentSum -= targetSum
 
-            leftSum = pathSumBacktrack(tree.left, targetSum, currentSum)
-            rightSum = pathSumBacktrack(tree.right, targetSum, currentSum)
-            return leftSum or rightSum
-        
-        return pathSumBacktrack(root, targetSum)
+            return False
+
+        return helper(root, targetSum)
