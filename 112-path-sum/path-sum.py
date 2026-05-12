@@ -15,12 +15,11 @@ class Solution:
             currentSum += tree.val
             if not tree.left and not tree.right:
                 return currentSum == targetSum
-                
+
             if helper(tree.left, targetSum, currentSum):
                 return True
             if helper(tree.right, targetSum, currentSum):
                 return True
-            currentSum -= targetSum
 
             return False
 
