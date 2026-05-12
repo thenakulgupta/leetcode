@@ -3,51 +3,38 @@ class Solution:
         board = [["." for _ in range(n)] for _ in range(n)]
         self.finalBoard = []
 
-        def isValidPosition(board, i, j):
-            n = len(board)
-            for row in range(n):
-                if i != row and board[row][j] == 'Q':
-                    return False
-            row, col = i - 1, j - 1
-            while row >= 0 and col >= 0:
-                if board[row][col] == 'Q':
-                    return False
-                row -= 1
-                col -= 1
-            row, col = i - 1, j + 1
-            while row >= 0 and col < n:
-                if board[row][col] == 'Q':
-                    return False
-                row -= 1
-                col += 1
-            row, col = i + 1, j - 1
-            while row < n and col >= 0:
-                if board[row][col] == 'Q':
-                    return False
-                row += 1
-                col -= 1
-            row, col = i + 1, j + 1
-            while row < n and col < n:
-                if board[row][col] == 'Q':
-                    return False
-                row += 1
-                col += 1
+        def isValidPosition(board, i, j, colSet, diag1Set, diag2Set):
+            if j in colSet:
+                return False
+
+            if j + i in diag1Set:
+                return False
+
+            if i - j in diag2Set:
+                return False
+
             return True
 
 
-        def nQueens(board, i = 0):
+        def nQueens(board, i, colSet, diag1Set, diag2Set):
             if i == n:
                 self.finalBoard.append(["".join(_) for _ in board])
                 return True
             
             for j in range(n):
-                if isValidPosition(board, i, j):
+                if isValidPosition(board, i, j, colSet, diag1Set, diag2Set):
                     board[i][j] = 'Q'
-                    nQueens(board, i + 1)
+                    colSet.add(j)
+                    diag1Set.add(j + i)
+                    diag2Set.add(i - j)
+                    nQueens(board, i + 1, colSet, diag1Set, diag2Set)
                     board[i][j] = '.'
+                    colSet.remove(j)
+                    diag1Set.remove(j + i)
+                    diag2Set.remove(i - j)
 
             return False
 
 
-        nQueens(board)
+        nQueens(board, 0, set(), set(), set())
         return self.finalBoard
