@@ -14,7 +14,7 @@ class Solution:
                 if int(lastEle) < 0 or int(lastEle) > 255:
                     return False
             return True
-        def restoreIpAddressesHelper(s, i=0, arr=[]):
+        def restoreIpAddressesHelper(s, i, arr):
             if i == len(s):
                 if len(arr) == 4:
                     self.retAns.append(".".join(arr))
@@ -28,5 +28,5 @@ class Solution:
             arr.pop()
             
 
-        restoreIpAddressesHelper(s)
+        restoreIpAddressesHelper(s, 0, [])
         return self.retAns
