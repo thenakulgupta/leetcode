@@ -15,7 +15,7 @@ class Solution:
 
             if len(arr) > 0:
                 lastEle = arr[-1]
-                if len(lastEle) != len(str(int(lastEle))):
+                if len(lastEle) > 1 and lastEle[0] == '0':
                     return False
                 if int(lastEle) < 0 or int(lastEle) > 255:
                     return False
@@ -24,10 +24,10 @@ class Solution:
             if i == len(s):
                 if len(arr) == 4 and sum([len(_) for _ in arr]) == len(s) and checkIP(arr):
                     self.retAns.append(".".join(arr))
-                return True
+                return
 
             if not checkIP(arr):
-                return False
+                return
 
             arr.append("")
             for j in range(i, min(i + 3, len(s))):
@@ -36,7 +36,6 @@ class Solution:
                 arr[-1] = lastEle
                 restoreIpAddressesHelper(s, j + 1, arr)
             arr.pop()
-            return True
             
 
         restoreIpAddressesHelper(s)
