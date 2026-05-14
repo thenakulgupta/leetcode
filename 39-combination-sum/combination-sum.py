@@ -1,25 +1,26 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        outputArr = []
-        def checkSum(candidates, target, arr = [], currentSum = 0 , i = 0):
+        self.retArr = []
+
+        def combinationSum(candidates, target, i, currentSum, arr):
             if i == len(candidates):
                 return
 
             if currentSum == target:
-                nonlocal outputArr
-                outputArr.append(arr[:])
+                self.retArr.append(arr[:])
                 return
 
             if currentSum > target:
                 return
 
-            arr.append(candidates[i])
             currentSum += candidates[i]
-            checkSum(candidates, target, arr, currentSum, i)
+            arr.append(candidates[i])
+            combinationSum(candidates, target, i, currentSum, arr)
 
-            arr.pop()
             currentSum -= candidates[i]
-            checkSum(candidates, target, arr, currentSum, i+1)
+            arr.pop()
+            combinationSum(candidates, target, i + 1, currentSum, arr)
 
-        checkSum(candidates, target)
-        return outputArr
+
+        combinationSum(candidates, target, 0, 0, [])
+        return self.retArr
