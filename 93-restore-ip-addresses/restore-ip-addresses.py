@@ -34,8 +34,7 @@ class Solution:
                 lastEle = arr[-1]
                 lastEle += s[j]
                 arr[-1] = lastEle
-                if not restoreIpAddressesHelper(s, j + 1, arr):
-                    lastEle = lastEle[:-1]
+                restoreIpAddressesHelper(s, j + 1, arr)
             arr.pop()
             return True
             
