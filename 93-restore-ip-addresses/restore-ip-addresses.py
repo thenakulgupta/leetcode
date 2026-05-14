@@ -4,12 +4,6 @@ class Solution:
             return []
         self.retAns = []
         def checkIP(arr):
-            maxToBeAdded = 4 * 3 - len(arr) * 3
-            leftNow = (4 - len(arr)) * 3
-
-            if leftNow > maxToBeAdded:
-                return False
-
             if len(arr) > 4:
                 return False
 
@@ -22,7 +16,7 @@ class Solution:
             return True
         def restoreIpAddressesHelper(s, i=0, arr=[]):
             if i == len(s):
-                if len(arr) == 4 and sum([len(_) for _ in arr]) == len(s) and checkIP(arr):
+                if len(arr) == 4:
                     self.retAns.append(".".join(arr))
                 return
 
@@ -31,10 +25,9 @@ class Solution:
 
             arr.append("")
             for j in range(i, min(i + 3, len(s))):
-                lastEle = arr[-1]
-                lastEle += s[j]
-                arr[-1] = lastEle
-                restoreIpAddressesHelper(s, j + 1, arr)
+                arr[-1] = s[i:j+1]
+                if checkIP(arr):
+                    restoreIpAddressesHelper(s, j + 1, arr)
             arr.pop()
             
 
