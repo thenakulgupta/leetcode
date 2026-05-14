@@ -20,9 +20,6 @@ class Solution:
                     self.retAns.append(".".join(arr))
                 return
 
-            if not checkIP(arr):
-                return
-
             arr.append("")
             for j in range(i, min(i + 3, len(s))):
                 arr[-1] = s[i:j+1]
