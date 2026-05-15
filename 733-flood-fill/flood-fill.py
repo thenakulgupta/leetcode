@@ -1,23 +1,29 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
-        graph = deque([(sr, sc)])
-        visited = set()
-        visited.add((sr, sc))
+        self.visited = set()
         startingPixel = image[sr][sc]
         dirs = [(0, -1), (0, 1), (1, 0), (-1, 0)]
         def isSafe(image, i, j):
             return not (i < 0 or j < 0 or i >= len(image) or j >= len(image[i]))
-        
-        while len(graph):
-            i, j = graph.popleft()
+
+        def dfs(image, i, j):
+            if not isSafe(image, i, j):
+                return
+
             if image[i][j] != startingPixel:
-                continue
+                return
+
+            if (i, j) in self.visited:
+                return
+
             image[i][j] = color
+            self.visited.add((i, j))
             for _dir in dirs:
                 i1, j1 = _dir
                 newI = i + i1
                 newJ = j + j1
-                if isSafe(image, newI, newJ) and (newI, newJ) not in visited:
-                    graph.append((newI, newJ))
-                    visited.add((newI, newJ))
+                dfs(image, newI, newJ)
+
+        dfs(image, sr, sc)
+               
         return image
