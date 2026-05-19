@@ -7,35 +7,24 @@ class Solution:
         m, n = len(board), len(board[0])
         dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]
         def protectBoxes(board, i, j):
+            if i < 0 or j < 0 or i > m - 1 or j > n - 1:
+                return
+            if (i, j) in protectedOBoxes:
+                return
+            if board[i][j] == 'X':
+                return
             protectedOBoxes.add((i, j))
             for r, c in dirs:
                 newR = i + r
                 newC = j + c
-                if (newR < 0 or newC < 0 or
-                    newR > m - 1 or newC > n - 1 or
-                    (newR, newC) in protectedOBoxes or
-                    board[newR][newC] == 'X'):
-                    continue
                 protectBoxes(board, newR, newC)
         
         for i in range(m):
-            if board[i][0] == 'X':
-                continue
             protectBoxes(board, i, 0)
+            protectBoxes(board, i, n - 1)
         
         for i in range(n):
-            if board[0][i] == 'X':
-                continue
             protectBoxes(board, 0, i)
-
-        for i in range(m):
-            if board[i][n - 1] == 'X':
-                continue
-            protectBoxes(board, i, n - 1)
-
-        for i in range(n):
-            if board[m - 1][i] == 'X':
-                continue
             protectBoxes(board, m - 1, i)
 
         for i in range(m):
